@@ -1,6 +1,6 @@
 import tkinter as tk
-from tkinter import ttk
-from tkinter import font
+from tkinter import ttk, font
+
 
 class MainFrame(tk.LabelFrame):
     def __init__(self, parent):
@@ -88,6 +88,13 @@ class MainFrame(tk.LabelFrame):
 
         self.costLabel = tk.Label(self, text='Costo de inscripción: $0.00', font=fontStyle)
         self.costLabel.grid(row=11, column=0, columnspan=5, padx=10, pady=10, sticky='EW')
+
+    def data(self):
+        data = [self.fornameEntry.get(), self.surnameEntry.get(), self.curpEntry.get(), self.stateEntry.get(), self.cityEntry.get(),
+                self.blockEntry.get(), self.streetEntry.get(), self.numberEntry.get(), self.zipEntry.get(), self.categoryCombobox.get()]
+        if not self.studentValue.get():
+            data.append(self.schoolEntry.get())
+        return data
 
     def adjustSchool(self, event):
         if self.studentValue.get():
