@@ -27,12 +27,12 @@ class MainFrame(tk.LabelFrame):
 
         sexLabel = tk.Label(self, text='Sexo: ', font=fontStyle)
         sexLabel.grid(row=3, column=0, padx=10, pady=10, sticky='EW')
-        self.sexValue = tk.IntVar()
+        self.sexValue = tk.IntVar(self)
         self.sexValue.set(1)
-        mRadioutton = ttk.Radiobutton(self, text='Masculino', value=1, variable=self.sexValue)
-        mRadioutton.grid(row=3, column=1, padx=10, pady=10, sticky='EW')
-        fRadioutton = ttk.Radiobutton(self, text='Femenino', value=0, variable=self.sexValue)
-        fRadioutton.grid(row=3, column=3, padx=(10,50), pady=10, sticky='EW')
+        mRadiobutton = ttk.Radiobutton(self, text='Masculino', value=1, variable=self.sexValue)
+        mRadiobutton.grid(row=3, column=1, padx=10, pady=10, sticky='EW')
+        fRadiobutton = ttk.Radiobutton(self, text='Femenino', value=0, variable=self.sexValue)
+        fRadiobutton.grid(row=3, column=3, padx=(10,50), pady=10, sticky='EW')
 
         stateLabel = tk.Label(self, text='Estado: ', font=fontStyle)
         stateLabel.grid(row=4, column=0, padx=10, pady=10, sticky='EW')

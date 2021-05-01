@@ -18,7 +18,7 @@ class Registro(tk.Tk):
         self.registerButton.grid(row=1, column=0, padx=25, pady=10, sticky='NSEW')
 
     def validateInfo(self):
-        if not all(self.mainFrame.data()):
+        if all(self.mainFrame.data()):
             success = RegisterSuccessful(self)
             success.mainloop()
         else:
