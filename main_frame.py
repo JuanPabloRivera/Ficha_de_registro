@@ -22,9 +22,9 @@ class MainFrame(tk.Frame):
     def validateInfo(self):
         if all(self.registerContainer.data()):
             self.register.addParticipant(self.registerContainer.data())
+            self.registerContainer.clear()
             success = RegisterSuccessful(self)
             success.mainloop()
-            self.registerContainer.clear()
         else:
             failed = RegisterFailed()
             failed.mainloop()      

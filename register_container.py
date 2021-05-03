@@ -105,7 +105,9 @@ class RegisterContainer(tk.LabelFrame):
         self.blockEntry.delete(0, tk.END)
         self.streetEntry.delete(0, tk.END)
         self.numberEntry.delete(0, tk.END)
+        self.zipEntry.delete(0, tk.END)
         self.studentValue.set('S')
+        self.schoolEntry.config(state=tk.NORMAL)
         self.schoolEntry.delete(0, tk.END)
         self.categoryCombobox.current([0])
 
