@@ -83,7 +83,7 @@ class RegisterContainer(tk.LabelFrame):
 
         categoryLabel = tk.Label(self, text='Categoría: ', font=fontStyle)
         categoryLabel.grid(row=10, column=2, padx=padx, pady=10, sticky='EW')
-        self.categoryCombobox = ttk.Combobox(self, values=['Infantil', 'Aficionados', 'Avanzado', 'Libre'], state='readonly')
+        self.categoryCombobox = ttk.Combobox(self, values=['', 'Infantil', 'Aficionados', 'Avanzado', 'Libre'], state='readonly')
         self.categoryCombobox.grid(row=10, column=3, padx=padx, pady=10, sticky='EW')
         self.categoryCombobox.bind('<<ComboboxSelected>>', self.__adjustCost)
 
@@ -94,6 +94,20 @@ class RegisterContainer(tk.LabelFrame):
         data = [self.fornameEntry.get(), self.surnameEntry.get(), self.curpEntry.get(), self.sexValue.get(), self.stateEntry.get(), self.cityEntry.get(),
                 self.blockEntry.get(), self.streetEntry.get(), self.numberEntry.get(), self.zipEntry.get(), self.studentValue.get(), self.schoolEntry.get(), self.categoryCombobox.get()]
         return data
+
+    def clear(self):
+        self.fornameEntry.delete(0, tk.END)
+        self.surnameEntry.delete(0, tk.END)
+        self.curpEntry.delete(0, tk.END)
+        self.sexValue.set('M')
+        self.stateEntry.delete(0, tk.END)
+        self.cityEntry.delete(0, tk.END)
+        self.blockEntry.delete(0, tk.END)
+        self.streetEntry.delete(0, tk.END)
+        self.numberEntry.delete(0, tk.END)
+        self.studentValue.set('S')
+        self.schoolEntry.delete(0, tk.END)
+        self.categoryCombobox.current([0])
 
     def __setSchool(self, event):
         self.schoolEntry.config(state=tk.NORMAL)

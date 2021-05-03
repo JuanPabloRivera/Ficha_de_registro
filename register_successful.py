@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from reportlab.pdfgen.canvas import Canvas
 from reportlab.lib.units import inch
-from docx import Document
+#from docx import Document
 
 class RegisterSuccessful(tk.Tk):
     def __init__(self, parent):
@@ -57,5 +57,4 @@ class RegisterSuccessful(tk.Tk):
         pass
 
     def createDOCX(self):
-        d = Document()
-        d.save('reconocimiento.docx')
+        pass

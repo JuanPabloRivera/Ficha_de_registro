@@ -16,7 +16,7 @@ class MainFrame(tk.Frame):
         self.registerButton = tk.Button(self, text='REGISTRARSE', bg='#4a5fff', font=font.Font(family='Helvetica', size='12', weight='bold'), command=self.validateInfo)
         self.registerButton.grid(row=1, column=0, padx=25, pady=10, sticky='NSEW')  
 
-        self.dataButton = tk.Button(self, text='PARTICIPANTES', font=font.Font(family='Helvetica', size='12', weight='bold'), command=showData)
+        self.dataButton = tk.Button(self, text='PARTICIPANTES', bg='#ffbf45', font=font.Font(family='Helvetica', size='12', weight='bold'), command=showData)
         self.dataButton.grid(row=1, column=1, padx=25, pady=10, sticky='NSEW')
 
     def validateInfo(self):
@@ -24,6 +24,7 @@ class MainFrame(tk.Frame):
             self.register.addParticipant(self.registerContainer.data())
             success = RegisterSuccessful(self)
             success.mainloop()
+            self.registerContainer.clear()
         else:
             failed = RegisterFailed()
             failed.mainloop()      
