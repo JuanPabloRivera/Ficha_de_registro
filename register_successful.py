@@ -1,12 +1,13 @@
 import tkinter as tk
 from tkinter import ttk
+from file_generator import FileGenerator
 
 class RegisterSuccessful(tk.Tk):
     def __init__(self, parent):
         super().__init__()
 
         self.resizable(0,0)
-        self.parent = parent
+        self.participants = parent.register.participants
     
         label = tk.Label(self, text='Ha sido registrado exitosamente\n¿Desea recibir un reconocimiento de participación?')
         label.grid(row=0, column=0, columnspan=4, padx=15, pady=15, sticky='EW')
@@ -29,10 +30,10 @@ class RegisterSuccessful(tk.Tk):
     def finish(self):
         if self.fileValue.get():
             if self.formatCombobox.get() == '.pdf':
-                pass
+                FileGenerator.createPDF(len(self.participants), self.participants[-1][0], self.participants[-1][1], self.participants[-1][-1].lower())
             elif self.formatCombobox.get() == '.txt':
-                pass
+                FileGenerator.createTXT(len(self.participants), self.participants[-1][0], self.participants[-1][1], self.participants[-1][-1].lower())
             else:
-                pass
+                FileGenerator.createDOCX(len(self.participants), self.participants[-1][0], self.participants[-1][1], self.participants[-1][-1].lower())
 
         self.destroy()
