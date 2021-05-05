@@ -64,5 +64,3 @@ class FileGenerator:
         paragraph2.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
         f.save(f"reconocimiento-{id}.docx")
-
-    createDOCX(1, 'Juanito', 'Perez', 'avanzado')
