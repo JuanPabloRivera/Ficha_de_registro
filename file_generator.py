@@ -6,7 +6,8 @@ from reportlab.lib.colors import Color
 from reportlab.lib.units import inch
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
-from docx.shared import Pt
+from docx.enum.style import WD_STYLE_TYPE
+from docx.shared import Pt, Inches
 
 class FileGenerator:
     def createPDF(id, forename, surname, category):
@@ -15,8 +16,10 @@ class FileGenerator:
         width, height = letter
 
         #Background image and rectangle for information
-        im = ImageReader("bg_image.jpg")
-        canvas.drawImage(image=im, x=0, y=0, width=width, height=height)
+        bg_im = ImageReader("assets/bg_image.jpg")
+        logo = ImageReader("assets/logo.png")
+        canvas.drawImage(image=bg_im, x=0, y=0, width=width, height=height)
+        canvas.drawImage(image=logo, x=inch/2, y=height-1.5*inch, width=inch, height=inch)
         gray50transparent = Color(160, 160, 160, alpha=0.75)
         canvas.setFillColor(gray50transparent)
         canvas.rect(0.5*inch, 2*inch, width-inch, height-4*inch, fill=True, stroke=False)
@@ -47,20 +50,59 @@ class FileGenerator:
     def createDOCX(id, forename, surname, category):
         f = Document()
 
-        style = f.styles['Normal']
-        font = style.font
+        normal = f.styles['Normal']
+        font = normal.font
         font.name = 'Helvetica'
-        font.size = Pt(16)
+        font.size = Pt(14)
+        
+        styles = f.styles
+        my_style = styles.add_style('MyStyle', WD_STYLE_TYPE.CHARACTER)
+        font = my_style.font
+        font.name = 'Helvetica'
+        font.size = Pt(18)
 
         heading = f.add_heading("Torneo de Programación Competitiva\nCopa Guadalajara 2021", 0)
         heading.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
         paragraph1 = f.add_paragraph(f"\n\n\nSe otorga el reconocimiento a:\n")
         paragraph1.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        runner = paragraph1.add_run(f'{forename} {surname}')
-        runner.bold = True
 
-        paragraph2 = f.add_paragraph(f'\n\nPor su participación en la categoría {category}\nen la copa de programación competitiva\nGuadalajara 2021.')
+        paragraph2 = f.add_paragraph()
         paragraph2.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r2 = paragraph2.add_run(f'{forename} {surname}\n', style='MyStyle').bold = True
+
+        paragraph3 = f.add_paragraph()
+        paragraph3.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r3 = paragraph3.add_run()
+        r3.add_text(f'\n\nPor su participación en la categoría {category}\nen la copa de programación competitiva\nGuadalajara 2021.')
+
+        f.add_paragraph()
+        f.add_paragraph()
+        f.add_paragraph()
+        paragraph4 = f.add_paragraph()
+        paragraph4.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        r4 = paragraph4.add_run()
+        r4.add_picture("assets/logo.png", width=Inches(3), height=Inches(3))
+
 
         f.save(f"reconocimiento-{id}.docx")
+
+    def createTicket(data):
+        f = open(f"Ticket-{data[0]}_{data[1]}.txt", 'w')
+        f.write("COMPROBANTE DE PAGO DEL PARTICIPANTE\n\n")
+
+        fields = ["Nombre" , "Apellido", "CURP", "Sexo", "Estado", "Ciudad", "Colonia", "Calle", "Número", "C.P.", "Estudiante", "Escuela" ,"Categoría"]
+        for i, field in enumerate(fields):
+            f.write(f"{field}: {data[i]}\n")
+        
+        if data[-1] == 'Infantil':
+            cost = 29.95
+        elif data[-1] == 'Aficionados':
+            cost = 58.99
+        elif data[-1] == 'Avanzado':
+            cost = 89.85
+        else:
+            cost = 49.95
+
+        f.write(f"\nTotal: ${cost}")
+        f.close()

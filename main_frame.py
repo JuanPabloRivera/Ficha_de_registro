@@ -3,6 +3,7 @@ from tkinter import ttk, font
 from register_container import RegisterContainer
 from register_successful import RegisterSuccessful
 from register_failed import RegisterFailed
+from file_generator import FileGenerator
 
 
 class MainFrame(tk.Frame):
@@ -21,6 +22,7 @@ class MainFrame(tk.Frame):
 
     def validateInfo(self):
         if all(self.registerContainer.data()):
+            FileGenerator.createTicket(self.registerContainer.data())
             self.register.addParticipant(self.registerContainer.data())
             self.registerContainer.clear()
             success = RegisterSuccessful(self)
