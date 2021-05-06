@@ -7,7 +7,7 @@ from reportlab.lib.units import inch
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.style import WD_STYLE_TYPE
-from docx.shared import Pt, Inches
+from docx.shared import Pt, Inches, RGBColor
 
 class FileGenerator:
     def createPDF(id, forename, surname, category):
@@ -56,20 +56,28 @@ class FileGenerator:
         font.size = Pt(14)
         
         styles = f.styles
-        my_style = styles.add_style('MyStyle', WD_STYLE_TYPE.CHARACTER)
-        font = my_style.font
+        my_style1 = styles.add_style('MyStyle1', WD_STYLE_TYPE.CHARACTER)
+        font = my_style1.font
         font.name = 'Helvetica'
         font.size = Pt(18)
 
-        heading = f.add_heading("Torneo de Programación Competitiva\nCopa Guadalajara 2021", 0)
+        styles = f.styles
+        my_style2 = styles.add_style('MyStyle2', WD_STYLE_TYPE.CHARACTER)
+        font = my_style2.font
+        font.name = 'Helvetica'
+        font.size = Pt(24)
+        font.color.rgb = RGBColor(255, 153, 51)
+
+        heading = f.add_paragraph()
         heading.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        hr = heading.add_run("Torneo de Programación Competitiva\nCopa Guadalajara 2021", style='MyStyle2').bold = True
 
         paragraph1 = f.add_paragraph(f"\n\n\nSe otorga el reconocimiento a:\n")
         paragraph1.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
         paragraph2 = f.add_paragraph()
         paragraph2.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        r2 = paragraph2.add_run(f'{forename} {surname}\n', style='MyStyle').bold = True
+        r2 = paragraph2.add_run(f'{forename} {surname}\n', style='MyStyle1').bold = True
 
         paragraph3 = f.add_paragraph()
         paragraph3.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -87,8 +95,8 @@ class FileGenerator:
 
         f.save(f"reconocimiento-{id}.docx")
 
-    def createTicket(data):
-        f = open(f"Ticket-{data[0]}_{data[1]}.txt", 'w')
+    def createTicket(id, data):
+        f = open(f"Ticket-{id}.txt", 'w')
         f.write("COMPROBANTE DE PAGO DEL PARTICIPANTE\n\n")
 
         fields = ["Nombre" , "Apellido", "CURP", "Sexo", "Estado", "Ciudad", "Colonia", "Calle", "Número", "C.P.", "Estudiante", "Escuela" ,"Categoría"]

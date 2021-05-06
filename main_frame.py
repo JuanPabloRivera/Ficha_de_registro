@@ -22,8 +22,8 @@ class MainFrame(tk.Frame):
 
     def validateInfo(self):
         if all(self.registerContainer.data()):
-            FileGenerator.createTicket(self.registerContainer.data())
             self.register.addParticipant(self.registerContainer.data())
+            FileGenerator.createTicket(len(self.register.participants), self.registerContainer.data())
             self.registerContainer.clear()
             success = RegisterSuccessful(self)
             success.mainloop()
