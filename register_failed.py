@@ -5,6 +5,7 @@ class RegisterFailed(tk.Tk):
     def __init__(self):
         super().__init__()
 
+        self.winfo_toplevel().title("Registro fallido")
         self.resizable(0,0)
 
         label = tk.Label(self, text='Por favor complete todos los campos\n para registrarse.')

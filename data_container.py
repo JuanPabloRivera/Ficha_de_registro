@@ -10,7 +10,7 @@ class DataContainer(tk.LabelFrame):
         self.entries = []
 
         entryWidth = [4,12,12,12,3,12,12,12,12,7,7,3,12,12]
-        entryName = ['#', 'Nombre', 'Apellido', 'CURP', 'SEXO', 'ESTADO', 'CIUDAD', 'COLONIA', 'CALLE', 'NÚMERO', 'C.P.','ESTUDIANTE', 'ESCUELA', 'CATEGORÍA']
+        entryName = ['ID', 'Nombre', 'Apellido', 'CURP', 'SEXO', 'ESTADO', 'CIUDAD', 'COLONIA', 'CALLE', 'NÚMERO', 'C.P.','ESTUDIANTE', 'ESCUELA', 'CATEGORÍA']
 
         # Column headers
         for k in range(14):
@@ -30,7 +30,7 @@ class DataContainer(tk.LabelFrame):
 
     def addParticipant(self, data):
         self.participantNumber += 1
-        self.participants[self.participantNumber] = data
+        self.participants[str(self.participantNumber)] = data
         self.updateContainer()
 
     def removeParticipant(self, id):

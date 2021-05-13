@@ -14,11 +14,11 @@ class MainFrame(tk.Frame):
         self.registerContainer = RegisterContainer(self)
         self.registerContainer.grid(row=0, column=0, columnspan=2, padx=25, pady=(25,0))#, sticky='NSEW')
 
-        self.registerButton = tk.Button(self, text='REGISTRARSE', bg='#4a5fff', font=font.Font(family='Helvetica', size='12', weight='bold'), command=self.validateInfo)
-        self.registerButton.grid(row=1, column=0, padx=25, pady=10, sticky='NSEW')  
+        registerButton = tk.Button(self, text='REGISTRARSE', bg='#4a5fff', font=font.Font(family='Helvetica', size='12', weight='bold'), command=self.validateInfo)
+        registerButton.grid(row=1, column=0, padx=25, pady=10, sticky='NSEW')  
 
-        self.dataButton = tk.Button(self, text='PARTICIPANTES', bg='#ffbf45', font=font.Font(family='Helvetica', size='12', weight='bold'), command=showData)
-        self.dataButton.grid(row=1, column=1, padx=25, pady=10, sticky='NSEW')
+        dataButton = tk.Button(self, text='PARTICIPANTES', bg='#ffbf45', font=font.Font(family='Helvetica', size='12', weight='bold'), command=showData)
+        dataButton.grid(row=1, column=1, padx=25, pady=10, sticky='NSEW')
 
     def validateInfo(self):
         if all(self.registerContainer.data()):

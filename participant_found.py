@@ -1,16 +1,17 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, font
 from file_generator import FileGenerator
 
-class RegisterSuccessful(tk.Tk):
-    def __init__(self, parent):
-        super().__init__()
 
-        self.winfo_toplevel().title("Registro exitoso")
-        self.resizable(0,0)
+class ParticipantFound(tk.Tk):
+    def __init__(self, parent, idx):
+        super().__init__()
+        self.idx = idx
         self.dataContainer = parent.dataContainer
+        self.winfo_toplevel().title("Participante encontrado")
+        self.resizable(0,0)
     
-        label = tk.Label(self, text='Ha sido registrado exitosamente\nElija el formato en el que desea recibir su reconocimiento')
+        label = tk.Label(self, text='El participante fue encontrado\nElija el formato en el que desea recibir su reconocimiento')
         label.grid(row=0, column=0, columnspan=2, padx=15, pady=15, sticky='EW')
 
         formatLabel = tk.Label(self, text='File format: ')
@@ -23,13 +24,12 @@ class RegisterSuccessful(tk.Tk):
         button.grid(row=2, column=0, columnspan=4, padx=15, pady=15, sticky='EW')
 
     def finish(self):
-        idx = str(self.dataContainer.participantNumber)
-        participant = self.dataContainer.participants[idx]
+        participant = self.dataContainer.participants[self.idx]
         if self.formatCombobox.get() == '.pdf':
-            FileGenerator.createPDF(idx, participant[0], participant[1], participant[-1].lower())
+            FileGenerator.createPDF(self.idx, participant[0], participant[1], participant[-1].lower())
         elif self.formatCombobox.get() == '.txt':
-            FileGenerator.createTXT(idx, participant[0], participant[1], participant[-1].lower())
+            FileGenerator.createTXT(self.idx, participant[0], participant[1], participant[-1].lower())
         else:
-            FileGenerator.createDOCX(idx, participant[0], participant[1], participant[-1].lower())
+            FileGenerator.createDOCX(self.idx, participant[0], participant[1], participant[-1].lower())
 
         self.destroy()
