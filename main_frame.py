@@ -9,7 +9,7 @@ from file_generator import FileGenerator
 class MainFrame(tk.Frame):
     def __init__(self, parent, showData):
         super().__init__(parent)
-        self.register = parent.dataFrame.dataContainer
+        self.dataContainer = parent.dataFrame.dataContainer
 
         self.registerContainer = RegisterContainer(self)
         self.registerContainer.grid(row=0, column=0, columnspan=2, padx=25, pady=(25,0))#, sticky='NSEW')
@@ -22,8 +22,8 @@ class MainFrame(tk.Frame):
 
     def validateInfo(self):
         if all(self.registerContainer.data()):
-            self.register.addParticipant(self.registerContainer.data())
-            FileGenerator.createTicket(len(self.register.participants), self.registerContainer.data())
+            self.dataContainer.addParticipant(self.registerContainer.data())
+            FileGenerator.createTicket(self.dataContainer.participantNumber, self.registerContainer.data())
             self.registerContainer.clear()
             success = RegisterSuccessful(self)
             success.mainloop()

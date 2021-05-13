@@ -1,0 +1,17 @@
+COMPROBANTE DE PAGO DEL PARTICIPANTE
+
+Nombre: Juano
+Apellido: Perz
+CURP: asdf
+Sexo: M
+Estado: asdf
+Ciudad: asdf
+Colonia: asdf
+Calle: asdf
+Número: 1234
+C.P.: 1234234
+Estudiante: N
+Escuela: -
+Categoría: Aficionados
+
+Total: $58.99

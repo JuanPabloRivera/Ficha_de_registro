@@ -7,7 +7,7 @@ class RegisterSuccessful(tk.Tk):
         super().__init__()
 
         self.resizable(0,0)
-        self.participants = parent.register.participants
+        self.dataContainer = parent.dataContainer
     
         label = tk.Label(self, text='Ha sido registrado exitosamente\nElija el formato en el que desea recibir su reconocimiento')
         label.grid(row=0, column=0, columnspan=2, padx=15, pady=15, sticky='EW')
@@ -22,11 +22,13 @@ class RegisterSuccessful(tk.Tk):
         button.grid(row=2, column=0, columnspan=4, padx=15, pady=15, sticky='EW')
 
     def finish(self):
+        idx = self.dataContainer.participantNumber
+        participant = self.dataContainer.participants[idx]
         if self.formatCombobox.get() == '.pdf':
-            FileGenerator.createPDF(len(self.participants), self.participants[-1][0], self.participants[-1][1], self.participants[-1][-1].lower())
+            FileGenerator.createPDF(idx, participant[0], participant[1], participant[-1].lower())
         elif self.formatCombobox.get() == '.txt':
-            FileGenerator.createTXT(len(self.participants), self.participants[-1][0], self.participants[-1][1], self.participants[-1][-1].lower())
+            FileGenerator.createTXT(idx, participant[0], participant[1], participant[-1].lower())
         else:
-            FileGenerator.createDOCX(len(self.participants), self.participants[-1][0], self.participants[-1][1], self.participants[-1][-1].lower())
+            FileGenerator.createDOCX(idx, participant[0], participant[1], participant[-1].lower())
 
         self.destroy()
