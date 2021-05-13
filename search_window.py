@@ -28,9 +28,36 @@ class SearchWindow(tk.Tk):
         idx = self.idEntry.get()
 
         if idx in self.dataContainer.participants.keys():
+            info = ParticipantInfo(idx, self.dataContainer)
+            while info.running:
+                info.update()
+            info.destroy()
             found = ParticipantFound(self, idx)
-            found.mainloop()
+            while found.running:
+                found.update()
+            found.destroy()
             self.destroy()
         else:
             invalid = InvalidId()
             invalid.mainloop()
+
+class ParticipantInfo(tk.Tk):
+    def __init__(self, idx, dataContainer):
+        super().__init__()
+
+        self.running = True
+
+        labelName = ['Nombre', 'Apellido', 'CURP', 'SEXO', 'ESTADO', 'CIUDAD', 'COLONIA', 'CALLE', 'NÚMERO', 'C.P.','ESTUDIANTE', 'ESCUELA', 'CATEGORÍA']
+
+        for i, name in enumerate(labelName):
+            label = tk.Label(self, text=f'{name}: ')
+            label.grid(row=i, column=0, padx=25, pady=10, sticky='NSEW')
+
+            label = tk.Label(self, text=f'{dataContainer.participants[idx][i]}')
+            label.grid(row=i, column=1, padx=25, pady=10, sticky='NSEW')
+
+        button = tk.Button(self, text='OK', command=self.exit)
+        button.grid(row=13, column=0, columnspan=2, padx=25, pady=10, sticky='NSEW')
+
+    def exit(self):
+        self.running = False

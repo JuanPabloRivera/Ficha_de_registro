@@ -6,6 +6,8 @@ from file_generator import FileGenerator
 class ParticipantFound(tk.Tk):
     def __init__(self, parent, idx):
         super().__init__()
+
+        self.running = True
         self.idx = idx
         self.dataContainer = parent.dataContainer
         self.winfo_toplevel().title("Participante encontrado")
@@ -32,4 +34,4 @@ class ParticipantFound(tk.Tk):
         else:
             FileGenerator.createDOCX(self.idx, participant[0], participant[1], participant[-1].lower())
 
-        self.destroy()
+        self.running = False
